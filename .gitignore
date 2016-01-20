@@ -1,0 +1,16 @@
+# Build artifacts
+build/*
+bin/*
+dirFile
+
+# Debug artifacts
+*.dSYM
+
+# Mac specific files
+.DS_STORE
+
+# Vim swap files
+*.swp
+
+# astyle artifacts
+*.orig
