@@ -39,19 +39,20 @@ bin/generator: $(GENOBJ) $(UTILOBJ)
 bin/branchbound: $(BRBOOBJ) $(UTILOBJ)
 	$(CC) $^ -o bin/branchbound
 
-build/%.o: src/%.cpp
-	$(CC) $(CFLAGS) $< -o $@
-
-build/generator/main.obj: src/generator/%.cpp
-	$(CC) $(CFLAGS) $< -o $@
+build/%.obj : src/%.cpp
+	$(CC) $(CFLAGS) -c $< -o $@
 
 # Phony Commands
 .PHONY: style
 style:
-	astyle -A2 -s4 -xd -k1 -j $(GENSRC) $(BRBOSRC) $(UTILSRC) $(UTILSRC:%=src/utility/%.h)
+	astyle -A2 -s4 -xd -k1 -j $(GENSRC) $(BRBOSRC) $(UTILSRC) $(UTILFILES:%=src/utility/%.h)
+
+.PHONY: test
+test: all
+	./bin/generator
+	./bin/branchbound
 
 .PHONY: clean
 clean:
 	rm -f -r build bin dirFile *.dSYM *.orig
-
 
