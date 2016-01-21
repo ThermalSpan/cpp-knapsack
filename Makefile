@@ -5,10 +5,14 @@
 # Directories
 TEMPDIRS = build bin build/generator build/branchbound build/utility
 
-# File Lists
-GENFILES = main
+# Source File Names
+GENFILES = main genFunctions
 BRBOFILES = main
 UTILFILES = utilities
+
+# Header File Names
+UTILHEADERS = utilities knapsack
+GENHEADERS = genFunctions
 
 # Compiler Stuff
 CC = g++
@@ -45,7 +49,7 @@ build/%.obj : src/%.cpp
 # Phony Commands
 .PHONY: style
 style:
-	astyle -A2 -s4 -xd -k1 -j $(GENSRC) $(BRBOSRC) $(UTILSRC) $(UTILFILES:%=src/utility/%.h)
+	astyle -A2 -s4 -xd -k1 -j $(GENSRC) $(BRBOSRC) $(UTILSRC) $(UTILHEADERS:%=src/utility/%.h) $(GENSRC) $(GENHEADERS:%=/src/generator/%.h)
 
 .PHONY: test
 test: all

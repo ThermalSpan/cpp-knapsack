@@ -11,6 +11,7 @@
 
 #include <stdlib.h>
 #include <iostream>
+//#include "knapsack.h"
 
 using namespace std;
 
@@ -25,3 +26,4 @@ char* getCmdOption (char** begin, char** end, const string& option);
 // src: http://stackoverflow.com/questions/865668/how-to-parse-command-line-arguments-in-c
 //
 bool cmdOptionExists (char** begin, char** end, const string& option);
+
