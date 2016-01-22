@@ -7,14 +7,40 @@
 // Distributed under the MIT License
 //
 
-struct item {
-    int weight;
-    int value;
-    float ratio;
+#pragma once
+
+#include <vector>
+
+using namespace std;
+
+struct Item {
+    int s_value;
+    int s_weight;
+    float s_ratio;
 };
 
-bool itemRatioComp (const item& i1, const item& i2) {
-    return i1.ratio < i2.ratio;
-}
+typedef vector <Item> ItemVec;
 
+//
+// Print Vector
+//
+void printItemVec (const ItemVec& vec);
+
+//
+// Comparators
+//
+bool itemValueComp (const Item& i1, const Item& i2);
+
+bool itemWeightComp (const Item& i1, const Item& i2);
+
+bool itemRatioComp (const Item& i1, const Item& i2);
+
+//
+// Sort Vectors
+//
+void sortItemVecByValue (ItemVec& vec);
+
+void sortItemVecByWeight (ItemVec& vec);
+
+void sortItemVecByRatio (ItemVec& vec);
 

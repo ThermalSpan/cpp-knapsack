@@ -11,7 +11,6 @@
 
 #include <stdlib.h>
 #include <iostream>
-//#include "knapsack.h"
 
 using namespace std;
 
