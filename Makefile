@@ -7,11 +7,12 @@ TEMPDIRS = build bin build/generator build/branchbound build/utility
 
 # Source File Names
 GENFILES = main genFunctions
-BRBOFILES = main
+BRBOFILES = main search
 UTILFILES = utilities knapsack
 
 # Header File Names
 GENHEADERS = genFunctions
+BRBOHEADERS = search
 
 # Compiler Stuff
 CC = g++
@@ -48,14 +49,19 @@ build/%.obj : src/%.cpp
 # Phony Commands
 .PHONY: style
 style:
-	astyle -A2 -s4 -xd -k1 -j $(GENSRC) $(BRBOSRC) $(UTILSRC) $(UTILFILES:%=src/utility/%.h) $(GENSRC) $(GENHEADERS:%=/src/generator/%.h)
+	astyle -A2 -s4 -xd -k1 -j $(GENSRC) $(BRBOSRC) $(BRBOHEADERS:%=src/branchbound/%.h) $(UTILSRC) $(UTILFILES:%=src/utility/%.h) $(GENSRC) $(GENHEADERS:%=/src/generator/%.h)
 
 .PHONY: test
 test: all
 	./bin/generator
 	./bin/branchbound
 
+.PHONY: install
+install: bin/branchbound
+	cp bin/branchbound Tests/branchbound
+	cp bin/generator Tests/generator
+
 .PHONY: clean
 clean:
-	rm -f -r build bin dirFile *.dSYM src/*.orig
+	rm -f -r build bin dirFile *.dSYM src/*.orig Tests/generator Tests/branchbound
 

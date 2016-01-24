@@ -24,23 +24,23 @@ typedef vector <Item> ItemVec;
 //
 // Print Vector
 //
-void printItemVec (const ItemVec& vec);
+void printItemVec (const ItemVec &vec);
 
 //
 // Comparators
 //
-bool itemValueComp (const Item& i1, const Item& i2);
+bool itemValueComp (const Item &i1, const Item &i2);
 
-bool itemWeightComp (const Item& i1, const Item& i2);
+bool itemWeightComp (const Item &i1, const Item &i2);
 
-bool itemRatioComp (const Item& i1, const Item& i2);
+bool itemRatioComp (const Item &i1, const Item &i2);
 
 //
 // Sort Vectors
 //
-void sortItemVecByValue (ItemVec& vec);
+void sortItemVecByValue (ItemVec &vec);
 
-void sortItemVecByWeight (ItemVec& vec);
+void sortItemVecByWeight (ItemVec &vec);
 
-void sortItemVecByRatio (ItemVec& vec);
+void sortItemVecByRatio (ItemVec &vec);
 

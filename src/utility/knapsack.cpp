@@ -20,7 +20,7 @@ void printItemVec (const ItemVec& vector) {
     }
 }
 
-bool itemValueComp (const Item& i1, const Item& i2) {
+bool itemValueComp (const Item& i1, const Item& i2) { 
     return i1.s_value < i2.s_value;
 }
 
@@ -29,7 +29,11 @@ bool itemWeightComp (const Item& i1, const Item& i2) {
 }
 
 bool itemRatioComp (const Item& i1, const Item& i2) {
-    return i1.s_ratio < i2.s_ratio;
+    if (i1.s_ratio == i2.s_ratio) {
+        return i1.s_value > i2.s_value;
+    } else {
+        return i1.s_ratio > i2.s_ratio;
+    }
 }
 
 void sortItemVecByValue (ItemVec& vector) {

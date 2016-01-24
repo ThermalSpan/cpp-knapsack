@@ -10,6 +10,7 @@
 #include <stdlib.h>
 #include <iostream>
 #include <fstream>
+#include "search.h"
 #include "../utility/utilities.h"
 #include "../utility/knapsack.h"
 
@@ -68,13 +69,15 @@ int main (int argc, char* argv[]) {
         intIterator++;
         itemVec[i].s_ratio = (float) itemVec[i].s_value / (float) itemVec[i].s_weight;
     }
+    int capacity = *intIterator;
 
-    // Sort
+    /*
     sortItemVecByRatio (itemVec);
-
-    // Print
-    printItemVec (itemVec);
-
+    for (int i = 0; i < itemVec.size (); i++) {
+        cout << i << "\t" << greedyEstimate (itemVec, capacity, i) << endl;
+    }
+    */
+    search (itemVec, capacity);
 
     inputFileStream.close ();
     return 0;
