@@ -20,7 +20,7 @@ void printItemVec (const ItemVec& vector) {
     }
 }
 
-bool itemValueComp (const Item& i1, const Item& i2) { 
+bool itemValueComp (const Item& i1, const Item& i2) {
     return i1.s_value < i2.s_value;
 }
 

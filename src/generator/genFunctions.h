@@ -1,4 +1,4 @@
-// 
+//
 // genFunctions.cpp
 // knapsack
 //
@@ -14,14 +14,14 @@
 
 using namespace std;
 
-void genUnCor (int itemCount, int range, ofstream &outputFile);
+void genUnCor (int itemCount, int range, ofstream& outputFile);
 
-void genWeakCor (int itemCount, int range, ofstream &outputFile);
+void genWeakCor (int itemCount, int range, ofstream& outputFile);
 
-void genStrCor (int itemCount, int range, ofstream &outputFile);
+void genStrCor (int itemCount, int range, ofstream& outputFile);
 
-void genInvStrCor (int itemCount, int range, ofstream &outputFile);
+void genInvStrCor (int itemCount, int range, ofstream& outputFile);
 
-void genAlmStrCor (int itemCount, int range, ofstream &outputFile);
+void genAlmStrCor (int itemCount, int range, ofstream& outputFile);
 
-void genSubSum (int itemCount, int range, ofstream &outputFile);
+void genSubSum (int itemCount, int range, ofstream& outputFile);

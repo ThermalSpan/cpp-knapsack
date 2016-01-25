@@ -1,8 +1,8 @@
 //
-// main.cpp
+// polycase.cpp
 // knapsack
 //
-// Created by Russell Wilhelm Bentley on 1/19/16.
+// Created by Russell Wilhelm Bentley on 1/25/16
 // Copyright (c) 2015 Russell Wilhelm Bentley.
 // Distributed under the MIT License
 //
@@ -12,21 +12,20 @@
 #include <iostream>
 #include <fstream>
 #include "../utility/utilities.h"
-#include "genFunctions.h"
 
 using namespace std;
 
 void printHelp () {
-    cout << "Usage: generate [OPTIONS...] outputName" << endl;
+    cout << "Usage: polycase [OPTIONS...] directory" << endl;
     cout << endl;
     cout << "Description:" << endl;
-    cout << "\tGenerate a set of n weights within range, and correlate weights as specified" << endl;
+    cout << "\tWraps the generator, builds a number of cases" << endl;
     cout << endl;
     cout << "General Options" << endl;
+    cout << "\t-t\t\tProvide the number of test cases, defaulst to 10" << endl;
     cout << "\t-n\t\tProvide the number of items, defaults to 50" << endl;
     cout << "\t-r\t\tProvide the range for the weights, defaults to 1000" << endl;
     cout << "\t-c\t\tProvide the capacity of the knapsack, defaults to the range" << endl;
-    cout << "\t-s\t\tProvide an integer seed for the random number generator" << endl;
     cout << endl;
     cout << "Attribute Correlation Options" << endl;
     cout << "\t--uncor\tUncorrelated attributes" << endl;
@@ -44,6 +43,19 @@ int main (int argc, char* argv[]) {
         return 0;
     }
 
+    // Get the user's test count
+    int testCount = 10;
+    char* testInput = getCmdOption (argv, argv + argc, "-t");
+    if (testInput != nullptr) {
+        testCount = atoi (testInput);
+        if (testCount == 0) {
+            cout << "Invalid test count option" << endl;
+            return 1;
+        }
+    }
+
+    string command ("./generator ");
+
     // Get the user's item count
     int itemCount = 50;
     char* countInput = getCmdOption (argv, argv + argc, "-n");
@@ -54,6 +66,8 @@ int main (int argc, char* argv[]) {
             return 1;
         }
     }
+    command += "-n ";
+    command += to_string (itemCount) + " ";
 
     // Get the user's range
     int range = 100;
@@ -65,6 +79,8 @@ int main (int argc, char* argv[]) {
             return 1;
         }
     }
+    command += "-r ";
+    command += to_string (range) + " ";
 
     // Get the user's capacity
     int capacity = range;
@@ -76,57 +92,42 @@ int main (int argc, char* argv[]) {
             return 1;
         }
     }
-
-    // Get the user's seed number
-    int seed = time (nullptr);
-    char* seedInput = getCmdOption (argv, argv + argc, "-s");
-    if (seedInput != nullptr) {
-        seed = atoi (seedInput);
-        cout << "Seed used: " << seed << endl;
-    } else {
-        cout << "Def seed used: " << seed << endl;
-    }
-    srand (seed);
-
-    // Open output file stream
-    string outputName;
-    if (argc > 1) {
-        outputName.assign (argv[argc - 1]); // outputName should be the last option supplied
-    } else {
-        cout << "No outputName given" << endl;
-        return 1;
-    }
-    ofstream outputFile (outputName);
-    if (!outputFile.is_open ()) {
-        cout << "There was an error opening the output file stream" << endl;
-        return 1;
-    }
-
-    // Write out the item count
-    outputFile << itemCount << endl;
+    command += "-c ";
+    command += to_string (capacity) + " ";
 
     // Figure out what type of set we will generate
     if (cmdOptionExists (argv, argv + argc, "--uncor")) {
-        genUnCor (itemCount, range, outputFile);
+        command += "--uncor ";
     } else if (cmdOptionExists (argv, argv + argc, "--weakcor")) {
-        genWeakCor (itemCount, range, outputFile);
+        command += "--weakcor ";
     } else if (cmdOptionExists (argv, argv + argc, "--strcor")) {
-        genStrCor (itemCount, range, outputFile);
+        command += "--strcor ";
     } else if (cmdOptionExists (argv, argv + argc, "--invstrcor")) {
-        genInvStrCor (itemCount, range, outputFile);
+        command += "--invstrcor ";
     } else if (cmdOptionExists (argv, argv + argc, "--almstrcor")) {
-        genAlmStrCor (itemCount, range, outputFile);
+        command += "--almstrcor ";
     } else if (cmdOptionExists (argv, argv + argc, "--subsum")) {
-        genSubSum (itemCount, range, outputFile);
+        command += "--subsum ";
     } else {
         // Not the greatest, but wan't to leave the default case easy to modify
-        genUnCor (itemCount, range, outputFile);
+        command += "--uncor ";
     }
 
-    // Write out the capacity and close
-    outputFile << capacity << endl;
-    if (outputFile.is_open ()) {
-        outputFile.close ();
+    // Get the director name
+    string outputDirectory;
+    if (argc > 1) {
+        outputDirectory.assign (argv[argc - 1]); // outputDirectory should be the last option supplied
+    } else {
+        cout << "No outputDirectory given" << endl;
+        return 1;
     }
+
+    // Generate the test cases
+    for (int i = 0; i < testCount; i++) {
+        string caseCommand = command + "-s " + to_string (i) + " ";
+        caseCommand += outputDirectory + "/case" + to_string (i) + ".txt";
+        system (caseCommand.c_str ());
+    }
+
     return 0;
 }

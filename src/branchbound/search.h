@@ -18,11 +18,12 @@ struct Node {
     int s_value;        // Value of items in sack so far
     int s_capacity;     // Capacity left
     int s_upperBound;   // Upperbound on total value for sack
+    int s_addedBy;
 };
 
-bool operator< (const Node &n1, const Node &n2);
+bool operator< (const Node& n1, const Node& n2);
 
-int greedyEstimate (const ItemVec &vector, int capacity, int depth);
+int greedyEstimate (const ItemVec& vector, int capacity, int depth);
 
-void search (ItemVec &vector, int capacity);
+void search (ItemVec& vector, int capacity);
 
