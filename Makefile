@@ -3,38 +3,24 @@
 # Distributed under the MIT License
 
 # Directories
-TEMPDIRS = build bin build/generator build/branchbound build/utility build/recurrence build/testsuite
+TEMPDIRS = build bin build/generator build/utility build/testsuite build/knapsack
 
 # Source File Names
 GENFILES = main genFunctions
-BRBOFILES = main search
-RECUFILES = main search
-UTILFILES = utilities knapsack
-
-# Header File Names
-GENHEADERS = genFunctions
-BRBOHEADERS = search
-RECUHEADERS = search
+UTILFILES = utilities 
+KNAPFILES = main shared branchbound recurrence dynamic
 
 # Compiler Stuff
 CC = g++
 CFLAGS = -std=c++11 -stdlib=libc++ -Wall
 
 # Derived File Lists
-GENSRC = $(GENFILES:%=src/generator/%.cpp)
 GENOBJ = $(GENFILES:%=build/generator/%.obj)
-
-BRBOSRC = $(BRBOFILES:%=src/branchbound/%.cpp)
-BRBOOBJ = $(BRBOFILES:%=build/branchbound/%.obj)
-
-RECUSRC = $(RECUFILES:%=src/recurrence/%.cpp)
-RECUOBJ = $(RECUFILES:%=build/recurrence/%.obj)
-
-UTILSRC = $(UTILFILES:%=src/utility/%.cpp)
 UTILOBJ = $(UTILFILES:%=build/utility/%.obj)
+KNAPOBJ = $(KNAPFILES:%=build/knapsack/%.obj)
 
 # Targets
-all: dirFile bin/generator bin/branchbound  bin/recurrence bin/polycase
+all: dirFile bin/knapsack bin/generator bin/polycase
 
 dirFile:
 	for dir in $(TEMPDIRS); do \
@@ -45,11 +31,8 @@ dirFile:
 bin/generator: $(GENOBJ) $(UTILOBJ)
 	$(CC) $^ -o bin/generator
 
-bin/branchbound: $(BRBOOBJ) $(UTILOBJ)
-	$(CC) $^ -o bin/branchbound
-
-bin/recurrence: $(RECUOBJ) $(UTILOBJ)
-	$(CC) $^ -o bin/recurrence
+bin/knapsack: $(KNAPOBJ) $(UTILOBJ)
+	$(CC) $^ -o bin/knapsack
 
 bin/polycase: build/testsuite/polycase.obj $(UTILOBJ)
 	$(CC) $^ -o bin/polycase
@@ -62,20 +45,12 @@ build/%.obj : src/%.cpp
 style:
 	astyle -A2 -s4 -xd -k1 -j $$(find src -type f -name *cpp) $$(find src -type f -name *h)
 
-.PHONY: test
-test: all
-	/bin/generator
-	/bin/branchbound
-	/bin/recurrence
-
 .PHONY: install
-install: bin/branchbound bin/generator bin/recurrence bin/polycase
-	cp bin/branchbound Tests/branchbound
+install: bin/knapsack bin/generator bin/polycase
+	cp bin/branchbound Tests/knapsack
 	cp bin/generator Tests/generator
-	cp bin/recurrence Tests/recurrence
 	cp bin/polycase Tests/polycase
 
 .PHONY: clean
 clean:
-	rm -f -r build bin dirFile *.dSYM $$(find src -type f -name *orig) Tests/generator Tests/branchbound Tests/recurrence Tests/polycase
-
+	rm -f -r build bin dirFile *.dSYM $$(find src -type f -name *orig) Tests/generator Tests/knapsack Tests/polycase

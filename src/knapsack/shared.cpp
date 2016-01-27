@@ -1,5 +1,5 @@
 //
-// knapsack.cpp
+// shared.cpp
 // knapsack
 //
 // Created by Russell Wilhelm Bentley on 1/22/15.
@@ -9,7 +9,7 @@
 
 #include <algorithm>
 #include <iostream>
-#include "knapsack.h"
+#include "shared.h"
 
 using namespace std;
 

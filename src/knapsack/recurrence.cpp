@@ -1,5 +1,5 @@
 //
-// search.cpp
+// recurrence.cpp
 // knapsack
 //
 // Created by Russell Wilhelm Bentley on 1/25/16
@@ -10,12 +10,17 @@
 #include <math.h>
 #include <iostream>
 #include <queue>
-#include "search.h"
-#include "../utility/knapsack.h"
+#include "recurrence.h"
 
 using namespace std;
 
-void search (ItemVec& vector, int capacity) {
+struct Node {
+    int s_value;
+    int s_capacity;
+    int s_depth;
+};
+
+void recurrenceSolve (ItemVec& vector, int capacity) {
     queue <Node> nodeQueue;
     int best = 0;
     int nodeCount = 0;

@@ -1,5 +1,5 @@
 //
-// knapsack.h
+// shared.h
 // knapsack
 //
 // Created by Russell Wilhelm Bentley on 1/20/15.

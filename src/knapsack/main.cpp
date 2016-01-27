@@ -10,22 +10,28 @@
 #include <stdlib.h>
 #include <iostream>
 #include <fstream>
-#include "search.h"
 #include "../utility/utilities.h"
-#include "../utility/knapsack.h"
+#include "shared.h"
+#include "branchbound.h"
+#include "recurrence.h"
 
 using namespace std;
 
 void printHelp () {
-    cout << "Usage: branchbound [OPTIONS...] inputFile" << endl;
+    cout << "Usage: knapsack [OPTIONS...] inputFile" << endl;
     cout << endl;
     cout << "Description:" << endl;
-    cout << "\tOptimally solves the knapsack problem with a branch and bound algorithm." << endl;
+    cout << "\tOptimally solves the knapsack problem. " << endl;
     cout << endl;
     cout << "General Options" << endl;
     cout << "\t-h\t\tPrint the help / options menu and exit" << endl;
     cout << "\t-o\t\tSave solution to provided file name" << endl;
     cout << "\t--verbose\tPrint extra information about runtime information" << endl;
+    cout << endl;
+    cout << "Algorithm Options" << endl;
+    cout << "\t--recurrence\tUse the naive recurrence" << endl;
+    cout << "\t--branchbound\tUse a branch and bound algorithm" << endl;
+    cout << "\t--dynamic\tUse naive dynamic programming approach" << endl;
 }
 
 int main (int argc, char* argv[]) {
@@ -45,14 +51,14 @@ int main (int argc, char* argv[]) {
     string inputName;
     if (argc > 1) {
         inputName.assign (argv[argc - 1]); // outputName should be the last option supplied
-        cout << "branchbound: opening: " << inputName << endl;
+        cout << "opening: " << inputName << endl;
     } else {
-        cout << "branchbound: no outputName given" << endl;
+        cout << "Error: no outputName given" << endl;
         return 1;
     }
     ifstream inputFileStream (inputName);
     if (!inputFileStream.is_open ()) {
-        cout << "branchbound: There was an error opening the file stream" << endl;
+        cout << "Error: could no open the file stream" << endl;
         return 1;
     }
     istream_iterator <int> intIterator (inputFileStream);
@@ -71,7 +77,14 @@ int main (int argc, char* argv[]) {
     }
     int capacity = *intIterator;
 
-    search (itemVec, capacity);
+    // Now decide which method to use and run!
+    if (cmdOptionExists (argv, argv + argc, "--recurrence")) {
+        recurrenceSolve (itemVec, capacity);
+    } else if (cmdOptionExists (argv, argv + argc, "--branchbound")) {
+        branchBoundSolve (itemVec, capacity); 
+    } else if (cmdOptionExists (argv, argv + argc, "--dynamic")) {
+
+    }
 
     inputFileStream.close ();
     return 0;

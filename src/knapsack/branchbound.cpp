@@ -1,5 +1,5 @@
 //
-// search.cpp
+// branchbound.cpp
 // knapsack
 //
 // Created by Russell Wilhelm Bentley on 1/22/16
@@ -10,8 +10,15 @@
 #include <math.h>
 #include <iostream>
 #include <queue>
-#include "search.h"
-#include "../utility/knapsack.h"
+#include "branchbound.h"
+
+struct Node {
+    int s_depth;        // Which Item are we choosing?
+    int s_value;        // Value of items in sack so far
+    int s_capacity;     // Capacity left
+    int s_upperBound;   // Upperbound on total value for sack
+    int s_addedBy;
+};
 
 bool operator< (const Node& n1, const Node& n2) {
     return n1.s_upperBound < n2.s_upperBound;
@@ -41,7 +48,7 @@ int greedyEstimate (const ItemVec& vector, int capacity, int depth) {
     return valueEst;
 }
 
-void search (ItemVec& vector, int capacity) {
+void branchBoundSolve (ItemVec& vector, int capacity) {
     // This method assumes the items are sorted by ratio, with value as the tie breaker
     sortItemVecByRatio (vector);
 

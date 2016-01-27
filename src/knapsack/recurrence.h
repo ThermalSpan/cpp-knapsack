@@ -1,5 +1,5 @@
 //
-// search.h
+// recurrence.h
 // knapsack
 //
 // Created by Russell Wilhelm Bentley on 1/22/16.
@@ -9,16 +9,8 @@
 
 #pragma once
 
-#include "../utility/knapsack.h"
+#include "shared.h"
 
 using namespace std;
 
-struct Node {
-    int s_value;
-    int s_capacity;
-    int s_depth;
-};
-
-void search (ItemVec& vector, int capacity);
-
-
+void recurrenceSolve (ItemVec& vector, int capacity);
