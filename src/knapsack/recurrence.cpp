@@ -20,7 +20,7 @@ struct Node {
     int s_depth;
 };
 
-void recurrenceSolve (ItemVec& vector, int capacity) {
+void recurrenceSolve (ItemVec &vector, int capacity) {
     queue <Node> nodeQueue;
     int best = 0;
     int nodeCount = 0;

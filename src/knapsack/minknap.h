@@ -1,8 +1,8 @@
 //
-// recurrence.h
+// minknap.h
 // knapsack
 //
-// Created by Russell Wilhelm Bentley on 1/22/16.
+// Created by Russell Wilhelm Bentley on 1/27/16.
 // Copyright (c) 2015 Russell Wilhelm Bentley.
 // Distributed under the MIT License
 //
@@ -11,6 +11,7 @@
 
 #include "shared.h"
 
-using namespace std;
+void minKnapSolve (ItemVec &vec, int capacity);
 
-void recurrenceSolve (ItemVec &vector, int capacity);
+
+

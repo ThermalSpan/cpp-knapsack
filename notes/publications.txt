@@ -1,0 +1,11 @@
+"A Minimal Algorithm For the 0-1 Knapsack Problem" by Pissigner
+(minknap algorithm) 1995
+
+"An Expanding-core Algorithmm For the Knapsack Problem" by Pissigner
+(expknap algorithm) 1993
+
+"Dynamic Programming and Strong Bounds for the Knapsack Problem" martello, Toth, and Pissinger
+(combo algorithm) 1999
+
+"Where are the Hard Knapsack Problems" by Pissinger
+(comparison of above algorithms) 2004

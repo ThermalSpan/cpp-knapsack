@@ -8,7 +8,7 @@ TEMPDIRS = build bin build/generator build/utility build/testsuite build/knapsac
 # Source File Names
 GENFILES = main genFunctions
 UTILFILES = utilities 
-KNAPFILES = main shared branchbound recurrence dynamic
+KNAPFILES = main shared branchbound recurrence dynamic minknap
 
 # Compiler Stuff
 CC = g++
@@ -43,7 +43,7 @@ build/%.obj : src/%.cpp
 # Phony Commands
 .PHONY: style
 style:
-	astyle -A2 -s4 -xd -k1 -j $$(find src -type f -name *cpp) $$(find src -type f -name *h)
+	astyle -A2 -s4 -xd -k3 -j $$(find src -type f -and -name *cpp -or -name *.h) 
 
 .PHONY: install
 install: bin/knapsack bin/generator bin/polycase
@@ -53,4 +53,4 @@ install: bin/knapsack bin/generator bin/polycase
 
 .PHONY: clean
 clean:
-	rm -f -r build bin dirFile *.dSYM $$(find src -type f -name *orig) Tests/generator Tests/knapsack Tests/polycase
+	rm -f -r build bin dirFile $$(find . -type f -and -name *orig -or -name *aux -or -name *log -or -name *dSYM -or -name *swp -or -name *pdf) Tests/generator Tests/knapsack Tests/polycase 

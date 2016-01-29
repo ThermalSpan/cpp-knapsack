@@ -11,7 +11,7 @@
 
 using namespace std;
 
-void genUnCor (int itemCount, int range, ofstream& outputFile) {
+void genUnCor (int itemCount, int range, ofstream &outputFile) {
     for (int i = 1; i <= itemCount; i++) {
         int weight = (rand () % range) + 1;
         int value = rand () % range + 1;
@@ -19,7 +19,7 @@ void genUnCor (int itemCount, int range, ofstream& outputFile) {
     }
 }
 
-void genWeakCor (int itemCount, int range, ofstream& outputFile) {
+void genWeakCor (int itemCount, int range, ofstream &outputFile) {
     int interval = range / 10;
     int priceRange = 2 * interval;
     for (int i = 1; i <= itemCount; i++) {
@@ -29,7 +29,7 @@ void genWeakCor (int itemCount, int range, ofstream& outputFile) {
     }
 }
 
-void genStrCor (int itemCount, int range, ofstream& outputFile) {
+void genStrCor (int itemCount, int range, ofstream &outputFile) {
     int offset = range / 10;
     for (int i = 1; i <= itemCount; i++) {
         int weight = (rand () % range) + 1;
@@ -37,7 +37,7 @@ void genStrCor (int itemCount, int range, ofstream& outputFile) {
     }
 }
 
-void genInvStrCor (int itemCount, int range, ofstream& outputFile) {
+void genInvStrCor (int itemCount, int range, ofstream &outputFile) {
     int offset = range / 10;
     for (int i = 1; i <= itemCount; i++) {
         int weight = (rand () % range) + 1;
@@ -45,7 +45,7 @@ void genInvStrCor (int itemCount, int range, ofstream& outputFile) {
     }
 }
 
-void genAlmStrCor (int itemCount, int range, ofstream& outputFile) {
+void genAlmStrCor (int itemCount, int range, ofstream &outputFile) {
     int interval = range / 10;
     int increment = range / 500;
     int priceRange = 2 * increment;
@@ -56,7 +56,7 @@ void genAlmStrCor (int itemCount, int range, ofstream& outputFile) {
     }
 }
 
-void genSubSum (int itemCount, int range, ofstream& outputFile) {
+void genSubSum (int itemCount, int range, ofstream &outputFile) {
     for (int i = 1; i <= itemCount; i++) {
         int weight = rand () %range + 1;
         outputFile << i << " " << weight << " " << weight << endl;

@@ -1,0 +1,73 @@
+\documentclass{article}
+
+\usepackage{fullpage}
+\usepackage{amsmath, amsfonts}
+
+\begin{document}
+\section{Introduction to Knapsack and Expanding Core}
+Consider a set of items $I = \{i_1,...,i_n\}$ where each item is a weight value pair, $i_i = (w_i, v_i)$. Then the knapsack problem is to maximize the value of a subset of these items, which keeping their total weight within some capacity, $c$. In the 0-1 Knapsack problem (KP), we can only have integer solutions, so we describe a solution using $X = \{x_1,\ldots,x_n \ | \ x_i \in \{0,1\}\}$, which is called a {\bf decision vector}.
+\begin{equation} \label{knapsackdef}
+\begin{aligned}
+    \text{maximize }& z = \sum\limits_{j=1}^n v_jx_j \\
+    \text{such that }& \sum  w_j x_j \leq c\\
+\end{aligned}
+\end{equation}
+
+In the linear knapsack problem (LKP), we are allowed to take fractional items. The optimal solution in this case can be found easily by greedily adding the items with the greatest value / weight ratio, $r_i$, until we can no longer add any complete items. This is known as the {\bf break solution}. The left over space is filled with a fraction of the remaining item with the greatest ratio, the {\bf break item}.We define the index $b$ as the index of this break item. Note that we assume $I$ is indexed from highest ratio to lowest. 
+\begin{equation} \label{breakitemdef}
+    b = \min \{j \ | \ \sum\limits_{j=1}^n wj > c
+\end{equation}
+
+It has been observed that the optimal solution to an instance of the KP generally shares most of the items with the break solution, save for some changes around the break item. This suggest looking at a small interval of items about $b$, known as the {\bf core}. The core is an interval of indices, $[s,t]$, satisfying the following ordering:
+\begin{equation} \label{coreOrdering}
+    \begin{aligned}
+        r_j &\geq e_{j+1} \ \ j = s, \ldots , t-1\\
+        r_j &\geq e_s \ \ j = 1, \ldots ,s-1\\
+        r_j &\leq e_t \ \ j = t+1, \ldots , n
+    \end{aligned}
+\end{equation}
+
+Essentially, we only need a strict ordering of items within $[s,t]$. The interval $[1,s-1]$ has items with a greater ratio that $e_s$ and items in the interval $[t+1, n]$ have a greater ratio than $e_t$. As long as we are only considering items in the core, this ordering on the set of items will be sufficient. 
+
+We will be looking at partial decision vectors based on this core problem. The set of all partial decision vector at any step will be given by:
+\begin{equation} \label{partialDec}
+    \begin{aligned}
+        X_{s,t} &= \{(x_s,\ldots,x_t) \ | \ x_i \in \{0,1\}\}
+    \end{aligned}
+\end{equation}
+Note that enumerating all possible partial decision vectors would take $O(2^{t-s+1})$, so much of our effort will be spent on keeping tight bounds on $s$ and $t$. Algorithms that solve the knapsack by expanding this core interval are known as {\bf expanding core} algorithms. 
+
+\section{Finding the Break Item}
+Finding the break item can be done simply in $O(n \log n)$ time by sorting the list of items and using \ref{knapsackdef}. However, given our weaker ordering requirements as described in \ref{coreOrdering}, sorting the entire list may not be necassary. As such, a variety of algorithms for finding the break item in $O(n)$ can be devised. 
+
+At the moment, this topic seems like a distraction, so we will return to it later. Maybe. 
+
+\section{Core Recursion}
+Using the basic insight behing expanding core algorithms, we can defined a new recusion that solves the core problem first. Assume items adhere to the ordering described in \ref{coreOrdering}. We will be defining this as the function $f_{s,t}(\tilde{c})$. Note that $s,t$ are the bounds of our core interval. $\tilde{c}$ refers to the capacity for the core problem, $0 \leq \tilde{c} \leq 2c$.
+$$\tilde{c} = \sum\limits_{j=1}^{s-1} w_j$$
+Note, that the optimal solution can be expressed as $f_{1,n}(c)$. Then our recurrence is:
+\begin{equation}
+    \begin{aligned}
+        f_{s,t}(\tilde{c}) = \max \left\{\sum\limits_{j=1}^{s-1}v_j + \sum\limits_{j=s}^t v_j x_j \ \bigg| \  \sum\limits_{j=1}^{s-1}w_j + \sum\limits_{j=s}^t w_j x_j \leq \tilde{c}, \ x_j \in \{0,1\}\right\}
+    \end{aligned}
+\end{equation}
+We can express this in an equivalent way to better enumerate the possible choices.
+\begin{equation} \label{reccurence}
+    \begin{aligned}
+        f_{s,t}(\tilde{c}) = \max \begin{cases} f_{s,t-1}(\tilde{c}) &  t \geq b\\
+    f_{s,t-1}(\tilde{c} - w_t) + v_t &  t \geq b, \tilde{c} - w_t \geq 0 \\
+    f_{s+1,t}(\tilde{c}) & s < b\\
+    f_{s+1,t}(\tilde{c} + w_s) - v_s & s < b, \tilde{c} + w_s \leq 2c \end{cases}
+\end{aligned}
+\end{equation}
+Now, let $f_{b,b-1}(\tilde{c}) = -\infty$ for $0 \leq \tilde{c} \leq \tilde{w} - 1$, and let $f_{b,b-1}(\tilde{c}) = \tilde{p}$ for $\tilde{w} \leq \tilde{c} \leq 2c$, where $\tilde{p} = \sum\limits_{j=1}^{b-1}p_j$, and $\tilde{w} = \sum\limits_{j=1}^{b-1}w_j$. 
+
+The idea here is that the enumeration starts with $(s,t) = (b, b-1)$, and we either take items out of the sack (lower $s$), or add items to the sack (raise $t$).
+
+We will represent an undominated state with with the tuple $(\pi_i, \mu_i, \delta_i)$ where $\pi_i = f_{s,t}(\mu_i)$, and the 
+
+
+
+
+
+\end{document}

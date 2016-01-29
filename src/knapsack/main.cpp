@@ -14,6 +14,8 @@
 #include "shared.h"
 #include "branchbound.h"
 #include "recurrence.h"
+#include "dynamic.h"
+#include "minknap.h"
 
 using namespace std;
 
@@ -32,9 +34,10 @@ void printHelp () {
     cout << "\t--recurrence\tUse the naive recurrence" << endl;
     cout << "\t--branchbound\tUse a branch and bound algorithm" << endl;
     cout << "\t--dynamic\tUse naive dynamic programming approach" << endl;
+    cout << "\t--minknap\tUse the minknap algorithm" << endl;
 }
 
-int main (int argc, char* argv[]) {
+int main (int argc, char *argv[]) {
     // Print help menu?
     if (cmdOptionExists (argv, argv + argc, "-h")) {
         printHelp ();
@@ -81,9 +84,11 @@ int main (int argc, char* argv[]) {
     if (cmdOptionExists (argv, argv + argc, "--recurrence")) {
         recurrenceSolve (itemVec, capacity);
     } else if (cmdOptionExists (argv, argv + argc, "--branchbound")) {
-        branchBoundSolve (itemVec, capacity); 
+        branchBoundSolve (itemVec, capacity);
     } else if (cmdOptionExists (argv, argv + argc, "--dynamic")) {
-
+        dynamicSolve (itemVec, capacity);
+    } else if (cmdOptionExists (argv, argv + argc, "--minknap")) {
+        minKnapSolve (itemVec, capacity);
     }
 
     inputFileStream.close ();

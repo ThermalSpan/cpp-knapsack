@@ -37,7 +37,7 @@ void printHelp () {
     cout << "\t--almstrcor\tApproximately strongly correlated attributes" << endl;
 }
 
-int main (int argc, char* argv[]) {
+int main (int argc, char *argv[]) {
     // Print help menu?
     if (cmdOptionExists (argv, argv + argc, "-h")) {
         printHelp ();
@@ -46,7 +46,7 @@ int main (int argc, char* argv[]) {
 
     // Get the user's item count
     int itemCount = 50;
-    char* countInput = getCmdOption (argv, argv + argc, "-n");
+    char *countInput = getCmdOption (argv, argv + argc, "-n");
     if (countInput != nullptr) {
         itemCount = atoi (countInput);
         if (itemCount == 0) {
@@ -57,7 +57,7 @@ int main (int argc, char* argv[]) {
 
     // Get the user's range
     int range = 100;
-    char* rangeInput = getCmdOption (argv, argv + argc, "-r");
+    char *rangeInput = getCmdOption (argv, argv + argc, "-r");
     if (rangeInput != nullptr) {
         range = atoi (rangeInput);
         if (range == 0) {
@@ -68,7 +68,7 @@ int main (int argc, char* argv[]) {
 
     // Get the user's capacity
     int capacity = range;
-    char* capacityInput = getCmdOption (argv, argv + argc, "-c");
+    char *capacityInput = getCmdOption (argv, argv + argc, "-c");
     if (capacityInput != nullptr) {
         capacity = atoi (capacityInput);
         if (capacity == 0) {
@@ -79,7 +79,7 @@ int main (int argc, char* argv[]) {
 
     // Get the user's seed number
     int seed = time (nullptr);
-    char* seedInput = getCmdOption (argv, argv + argc, "-s");
+    char *seedInput = getCmdOption (argv, argv + argc, "-s");
     if (seedInput != nullptr) {
         seed = atoi (seedInput);
         cout << "Seed used: " << seed << endl;

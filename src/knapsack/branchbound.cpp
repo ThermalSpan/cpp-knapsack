@@ -20,11 +20,11 @@ struct Node {
     int s_addedBy;
 };
 
-bool operator< (const Node& n1, const Node& n2) {
+bool operator< (const Node &n1, const Node &n2) {
     return n1.s_upperBound < n2.s_upperBound;
 }
 
-int greedyEstimate (const ItemVec& vector, int capacity, int depth) {
+int greedyEstimate (const ItemVec &vector, int capacity, int depth) {
     int index = depth;
     int spaceLeft = capacity;
     int valueEst = 0;
@@ -48,7 +48,7 @@ int greedyEstimate (const ItemVec& vector, int capacity, int depth) {
     return valueEst;
 }
 
-void branchBoundSolve (ItemVec& vector, int capacity) {
+void branchBoundSolve (ItemVec &vector, int capacity) {
     // This method assumes the items are sorted by ratio, with value as the tie breaker
     sortItemVecByRatio (vector);
 

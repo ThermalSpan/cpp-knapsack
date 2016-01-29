@@ -13,4 +13,4 @@
 
 using namespace std;
 
-void branchBoundSolve (ItemVec& vector, int capacity);
+void branchBoundSolve (ItemVec &vector, int capacity);
