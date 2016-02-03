@@ -1,0 +1,5 @@
+opening: ../Tests/10uncor10n100r500c/case9.txt
+
+real	0m0.003s
+user	0m0.001s
+sys	0m0.002s

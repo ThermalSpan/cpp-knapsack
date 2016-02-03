@@ -15,7 +15,7 @@
 #include "branchbound.h"
 #include "recurrence.h"
 #include "dynamic.h"
-#include "minknap.h"
+//#include "minknap.h"
 
 using namespace std;
 
@@ -27,8 +27,6 @@ void printHelp () {
     cout << endl;
     cout << "General Options" << endl;
     cout << "\t-h\t\tPrint the help / options menu and exit" << endl;
-    cout << "\t-o\t\tSave solution to provided file name" << endl;
-    cout << "\t--verbose\tPrint extra information about runtime information" << endl;
     cout << endl;
     cout << "Algorithm Options" << endl;
     cout << "\t--recurrence\tUse the naive recurrence" << endl;
@@ -71,7 +69,8 @@ int main (int argc, char *argv[]) {
     ++intIterator;
     ItemVec itemVec (itemCount);
     for (int i = 0; i < itemCount; i++) {
-        intIterator++; // First number is an id
+        itemVec[i].s_id = *intIterator;
+        intIterator++;
         itemVec[i].s_value = *intIterator;
         intIterator++;
         itemVec[i].s_weight = *intIterator;
@@ -88,7 +87,9 @@ int main (int argc, char *argv[]) {
     } else if (cmdOptionExists (argv, argv + argc, "--dynamic")) {
         dynamicSolve (itemVec, capacity);
     } else if (cmdOptionExists (argv, argv + argc, "--minknap")) {
-        minKnapSolve (itemVec, capacity);
+        //minKnapSolve (itemVec, capacity);
+    } else {
+        dynamicSolve (itemVec, capacity);
     }
 
     inputFileStream.close ();
